@@ -1,6 +1,6 @@
-# CSC4851_6851_25springDemo
+# CSC8370_25FullDemo
 
-⚡ Please show me that you can successfully run the [test.py](https://github.com/DongYang26/CSC4851_6851_25springDemo/blob/main/test.py) file in your environment.
+⚡ Please show me that you can successfully run the [test.py](https://github.com/DongYang26/CSC837025_FullDemo/blob/main/test.py) file in your environment.
 
 
 
@@ -9,13 +9,21 @@
 
 * Download the code into your folder using git command in VSCode's terminal
 ```
-git clone https://github.com/DongYang26/CSC4851_6851_25springDemo.git
+git clone https://github.com/DongYang26/CSC8370_25FullDemo.git
 ```
 * We enter the code folder using 'cd' command (Important🌟🌟🌟)
 ```
-cd CSC4851_6851_25springDemo
+cd CSC8370_25FullDemo
 ```
-* Try to run the python code named 'text.py' in your configured python environment.
+* Search you created python environments.
+```
+conda env list
+```
+* Activate the environment you prepared for this Demo
+```
+conda activate YourEnvironmentName
+```
+* Try to run the python code named 'text.py' in the activated python environment.
 ```
 python test.py
 ```
