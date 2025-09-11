@@ -1,6 +1,6 @@
 # CSC8370_25FullDemo
 
-⚡ Please show me that you can successfully run the [test.py](https://github.com/DongYang26/CSC837025_FullDemo/blob/main/test.py) file in your environment.
+⚡ Please show me that you can successfully run the [test.py](https://github.com/DongYang26/CSC8370_25FullDemo/blob/main/test.py) file in your environment.
 
 
 
