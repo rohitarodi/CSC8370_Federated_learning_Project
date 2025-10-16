@@ -1,0 +1,6 @@
+'''
+This is a federated learning framework for MNIST classification, on which you can build your own project model.
+
+The framework provides:
+Pre-implemented data loading functions, evaluation metrics, and the aggregation and distribution of model parameters in federated learning. Based on this framework, you can focus on designing your core functionality/model without worrying about the engineering aspects.
+'''
