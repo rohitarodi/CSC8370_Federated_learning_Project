@@ -10,7 +10,7 @@ import torch.nn as nn
 
 def dataloader(train_dataset, test_dataset):
 
-    # Set the length of the batch (number of samples per batch)
+    # TODO: Set the length of the batch (number of samples per batch)
     batch_size = 50
 
     train_loader = DataLoader(
