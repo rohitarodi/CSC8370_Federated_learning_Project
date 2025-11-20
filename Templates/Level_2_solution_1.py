@@ -78,7 +78,7 @@ def federated_learning(n_clients, global_epochs, local_epochs):
     client_loaders = [DataLoader(dataset, batch_size=50, shuffle=True) for dataset in client_datasets] # TODO: change the batch size here
     test_loader = DataLoader(test_dataset, batch_size=1000, shuffle=False) # TODO: change the batch size here
 
-    # Initialize global model and client models
+    # Initialize global model and n_clients client models
     global_model = ConvNet().to(device)
     client_models = [copy.deepcopy(global_model) for _ in range(n_clients)]
 
