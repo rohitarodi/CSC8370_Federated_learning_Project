@@ -114,7 +114,7 @@ def detect_malicious_clients(client_models, threshold=0.8):
     for i, avg_sim in enumerate(avg_similarities):
         if avg_sim < threshold:
             malicious_clients.append(i)
-            print(f"(Warning) : Client {i} flagged as malicious (avg similarity: {avg_sim:.4f})")
+            print(f"  (Warning) : Client {i} flagged as malicious (avg similarity: {avg_sim:.4f})")
 
     return malicious_clients, avg_similarities
 
@@ -127,7 +127,7 @@ def server_aggregate(global_model, client_models, malicious_clients=[]):
     benign_clients = [i for i in range(len(client_models)) if i not in malicious_clients]
 
     if len(benign_clients) == 0:
-        print(" (Warning) : All clients flagged as malicious! Using all clients.")
+        print("  (Warning) : All clients flagged as malicious! Using all clients.")
         benign_clients = list(range(len(client_models)))
 
     print(f"  Aggregating {len(benign_clients)} benign clients (excluded {len(malicious_clients)} malicious)")
@@ -216,7 +216,7 @@ def robust_federated_learning(n_clients, global_epochs, local_epochs, malicious_
             )
 
         # Detect malicious clients
-        print("\n (Warning) Running malicious client detection...")
+        print("\n  (Note :) Running malicious client detection...")
         malicious_detected, similarities = detect_malicious_clients(client_models, threshold=0.8)
 
         # Server aggregates models (excluding detected malicious clients)
