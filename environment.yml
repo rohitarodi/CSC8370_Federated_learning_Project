@@ -1,0 +1,13 @@
+name: datasec_env
+channels:
+  - pytorch
+  - defaults
+  - conda-forge
+dependencies:
+  - python=3.13
+  - pip
+  - pip:
+    - torch==2.9.0
+    - torchvision==0.24.0
+    - numpy==2.2.4
+    - matplotlib==3.10.1

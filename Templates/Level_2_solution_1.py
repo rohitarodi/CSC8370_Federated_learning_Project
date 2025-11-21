@@ -12,9 +12,24 @@ import copy
 class ConvNet(nn.Module):
     def __init__(self): # TODO: define the model architecture here
         super(ConvNet, self).__init__()
-
+        self.conv1 = nn.Conv2d(1, 6, 5)
+        self.pool = nn.MaxPool2d(2, 2)
+        self.conv2 = nn.Conv2d(6, 16, 5)
+        self.fc1 = nn.Linear(16 * 4 * 4, 120)
+        self.fc2 = nn.Linear(120, 84)
+        self.fc3 = nn.Linear(84, 10)
+        self.relu = torch.nn.ReLU()
 
     def forward(self, x): # TODO: define the forward pass here
+        out = self.conv1(x)
+        out = self.relu(out)
+        out = self.pool(out)
+        out = self.pool(self.relu(self.conv2(out)))
+        out = out.view(-1, 16 * 4 * 4)
+        out = self.relu(self.fc1(out))
+        out = self.relu(self.fc2(out))
+        out = self.fc3(out)
+        return out
         
 
 
@@ -42,11 +57,32 @@ def partition_dataset(dataset, n_clients=10):
 
 # TODO: define the client-side local training here
 def client_update(client_model, optimizer, train_loader, device, epochs=1):
+    client_model.train()
+    criterion = nn.CrossEntropyLoss()
+
+    for epoch in range(epochs):
+        for batch_idx, (data, labels) in enumerate(train_loader):
+            data, labels = data.to(device), labels.to(device)
+
+            optimizer.zero_grad()
+            output = client_model(data)
+            loss = criterion(output, labels)
+            loss.backward()
+            optimizer.step()
     
 
 
 # TODO: define the server-side aggregation of client models here
 def server_aggregate(global_model, client_models):
+    global_dict = global_model.state_dict()
+
+    for key in global_dict.keys():
+        global_dict[key] = torch.stack([client_models[i].state_dict()[key].float() for i in range(len(client_models))], 0).mean(0)
+
+    global_model.load_state_dict(global_dict)
+
+    for model in client_models:
+        model.load_state_dict(global_model.state_dict())
     
 
 
