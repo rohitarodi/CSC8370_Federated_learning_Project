@@ -8,7 +8,7 @@ Get up and running in 5 minutes!
 ```bash
 # If using git
 git clone <repository-url>
-cd CSC8370_25FullDemo
+cd CSC8370_Federated_learning_Project
 
 # Or download and extract the ZIP file
 ```

@@ -115,7 +115,7 @@ python test.py
 ## Project Structure
 
 ```
-CSC8370_25FullDemo/
+CSC8370_Federated_learning_Project/
 ├── README.md                          # This file
 ├── requirements.txt           # Essential packages only
 │
