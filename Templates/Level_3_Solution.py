@@ -114,7 +114,7 @@ def detect_malicious_clients(client_models, threshold=0.8):
     for i, avg_sim in enumerate(avg_similarities):
         if avg_sim < threshold:
             malicious_clients.append(i)
-            print(f"  ⚠️  Client {i} flagged as malicious (avg similarity: {avg_sim:.4f})")
+            print(f"(Warning) : Client {i} flagged as malicious (avg similarity: {avg_sim:.4f})")
 
     return malicious_clients, avg_similarities
 
@@ -127,7 +127,7 @@ def server_aggregate(global_model, client_models, malicious_clients=[]):
     benign_clients = [i for i in range(len(client_models)) if i not in malicious_clients]
 
     if len(benign_clients) == 0:
-        print("  ⚠️  Warning: All clients flagged as malicious! Using all clients.")
+        print(" (Warning) : All clients flagged as malicious! Using all clients.")
         benign_clients = list(range(len(client_models)))
 
     print(f"  Aggregating {len(benign_clients)} benign clients (excluded {len(malicious_clients)} malicious)")
@@ -180,7 +180,7 @@ def robust_federated_learning(n_clients, global_epochs, local_epochs, malicious_
     optimizers = [torch.optim.Adam(model.parameters(), lr=0.0005) for model in client_models]
 
     print(f"\n{'='*70}")
-    print(f"🔒 ROBUST FEDERATED LEARNING WITH ATTACK DETECTION")
+    print(f"ROBUST FEDERATED LEARNING WITH ATTACK DETECTION")
     print(f"{'='*70}")
     print(f"Configuration:")
     print(f"  - Clients: {n_clients}")
@@ -204,7 +204,7 @@ def robust_federated_learning(n_clients, global_epochs, local_epochs, malicious_
             is_malicious = (client_idx == malicious_client_id and attack_active)
 
             if is_malicious:
-                print(f"  🔴 Client {client_idx}: MALICIOUS (injecting false updates)")
+                print(f"  (Alert !!!) Client {client_idx}: MALICIOUS (injecting false updates)")
 
             client_update(
                 client_models[client_idx],
@@ -216,7 +216,7 @@ def robust_federated_learning(n_clients, global_epochs, local_epochs, malicious_
             )
 
         # Detect malicious clients
-        print("\n  🔍 Running malicious client detection...")
+        print("\n (Warning) Running malicious client detection...")
         malicious_detected, similarities = detect_malicious_clients(client_models, threshold=0.8)
 
         # Server aggregates models (excluding detected malicious clients)
@@ -224,22 +224,22 @@ def robust_federated_learning(n_clients, global_epochs, local_epochs, malicious_
 
         # Evaluate global model
         test_accuracy = test_model(global_model, test_loader, device)
-        print(f"\n  ✅ Global Model Test Accuracy: {test_accuracy:.4f}")
+        print(f"\n Global Model Test Accuracy: {test_accuracy:.4f}")
 
         # Show detection statistics
         if attack_active:
             if malicious_client_id in malicious_detected:
-                print(f"  ✅ Malicious client {malicious_client_id} successfully detected!")
+                print(f" Malicious client {malicious_client_id} successfully detected!")
             else:
-                print(f"  ❌ Malicious client {malicious_client_id} NOT detected!")
+                print(f" (Warning !!) Malicious client {malicious_client_id} NOT detected!")
 
         print(f"{'='*70}\n")
 
     # Save final model
     torch.save(global_model.state_dict(), 'robust_federated_model.pth')
     print(f"\n{'='*70}")
-    print(f"✅ ROBUST FEDERATED LEARNING COMPLETED")
-    print(f"   Final Accuracy: {test_accuracy:.4f}")
+    print(f" ROBUST FEDERATED LEARNING COMPLETED")
+    print(f" Final Accuracy: {test_accuracy:.4f}")
     print(f"{'='*70}\n")
 
 
